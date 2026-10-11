@@ -172,19 +172,27 @@ const ProjectDetail = () => {
             <h2 id="project-tech" className="mt-6 font-display text-5xl md:text-6xl leading-none">
               Built With
             </h2>
-            <ul className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 md:gap-4">
+            <ul
+              className="mt-10 grid gap-3 md:gap-4"
+              style={{
+                gridTemplateColumns: "repeat(10, minmax(0, 1fr))",
+                display: "grid"
+              }}
+            >
               {project.tech.map((tech) => (
                 <li
                   key={tech}
-                  className="group flex flex-col items-center justify-center gap-4 aspect-[5/4] border border-white/10 bg-white/[0.03] hover:border-white/30 hover:bg-white/[0.06] transition-colors duration-300"
+                  className="group flex flex-col items-center justify-center gap-3 aspect-[5/4] transition-colors duration-300"
                 >
-                  <span className="w-12 h-12 md:w-14 md:h-14 transition-transform duration-300 group-hover:scale-110" aria-hidden>
+                  <span className="w-15 h-15 md:w-[4.5rem] md:h-[4.5rem] transition-transform duration-300 group-hover:scale-110" aria-hidden>
                     <TechIcon name={tech} />
                   </span>
+             
                   <span className="font-body text-xs tracking-widest uppercase text-white/70">{tech}</span>
                 </li>
               ))}
             </ul>
+       
           </motion.section>
 
           {/* Navigation */}

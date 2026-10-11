@@ -1,7 +1,7 @@
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { ArrowUpRight, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { PROJECTS_PAGE_PARAM, PROJECTS_PAGE_SIZE, projects, responsiveImage } from "@/data/projects";
 import { cn } from "@/lib/utils";
 import "../assets/css/project.css"
@@ -9,33 +9,25 @@ import "../assets/css/project.css"
 const pageCount = Math.ceil(projects.length / PROJECTS_PAGE_SIZE);
 
 const buttonBase =
-  "inline-flex items-center justify-center gap-2 px-4 py-3 font-body text-xs tracking-widest uppercase transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white";
+  "inline-flex items-center justify-center gap-2 px-3 py-3 whitespace-nowrap font-body text-xs tracking-widest uppercase transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white";
 
-const LiveButton = ({ href, title }: { href?: string; title: string }) => {
-  const styles = "bg-white text-black hover:bg-white/80";
-
-  if (!href) {
-    return (
-      <span aria-disabled="true" title="Live demo coming soon" className={cn(buttonBase, styles, "opacity-40 cursor-not-allowed")}>
-        <ExternalLink className="w-3.5 h-3.5" aria-hidden />
-        Live
-      </span>
-    );
-  }
-
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={`Open ${title} live site (opens in a new tab)`}
-      className={cn(buttonBase, styles)}
-    >
-      <ExternalLink className="w-3.5 h-3.5" aria-hidden />
-      Live
-    </a>
-  );
+type ReadMeButtonProps = {
+  to: string;
+  title: string;
+  style?: CSSProperties;
 };
+
+const ReadMeButton = ({ to, title, style }: ReadMeButtonProps) => (
+  <Link
+    to={to}
+    aria-label={`Read more about ${title}`}
+    className={buttonBase}
+    style={{ color: "grey", cursor: "pointer", backgroundColor: "transparent", ...style }}
+  >
+    <ExternalLink className="w-3.5 h-3.5" aria-hidden />
+    Read Me
+  </Link>
+);
 
 const ProjectsSection = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -102,12 +94,10 @@ const ProjectsSection = () => {
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.5, delay: 0.1 + index * 0.06 }}
                   >
-                    {/* Duplicate of "Read more" for pointer users; hidden from keyboard and screen readers. */}
                     <Link
                       to={detailPath}
-                      tabIndex={-1}
-                      aria-hidden
-                      className="relative block aspect-[4/3] overflow-hidden bg-white/5"
+                      aria-label={`Read more about ${project.title}`}
+                      className="relative block aspect-[4/3] overflow-hidden bg-white/5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-white"
                     >
                       <img
                         src={cover.src}
@@ -117,19 +107,24 @@ const ProjectsSection = () => {
                         loading="lazy"
                         className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/70 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-500">
+                        <span className="w-16 h-16 inline-flex items-center justify-center rounded-full border border-white/60 text-white scale-75 group-hover:scale-100 group-focus-within:scale-100 transition-transform duration-500">
+                          <ExternalLink className="w-15.5 h-15.5" aria-hidden />
+                        </span>
+                      </div>
                     </Link>
 
-                    <div className="grid grid-cols-2 gap-3 p-4">
-                      <LiveButton href={project.liveUrl} title={project.title} />
-                      <Link
+                    <div className="grid grid-cols-1 gap-3 p-2 lg:hidden">
+                      <ReadMeButton
                         to={detailPath}
-                        aria-label={`Read more about ${project.title}`}
-                        className={cn(buttonBase, "border border-white/30 text-white hover:border-white hover:bg-white/10")}
-                      >
-                        Read more
-                        <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
-                      </Link>
+                        title={project.title}
+                        style={{
+                          border: "1px solid grey",
+                          borderRadius: "5px",
+                          backgroundColor: "transparent",
+                          color: "white"
+                        }}
+                      />
                     </div>
                   </motion.li>
                 );
