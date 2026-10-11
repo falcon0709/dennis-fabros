@@ -168,9 +168,6 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <h2 className="font-body text-xs tracking-[0.3em] uppercase text-primary-foreground/60 mb-6">
-                Tech Stack
-              </h2>
               <ul className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-6 xl:grid-cols-7 gap-2">
                 {TECH_STACK.map((tech, i) => (
                   <motion.li
@@ -187,9 +184,6 @@ const HeroSection = () => {
                       ) : (
                         <Icon icon={tech.iconify} className={`w-8 h-8 ${tech.iconClassName ?? ""}`} />
                       )}
-                    </span>
-                    <span className="font-body text-[10px] leading-tight text-center text-primary-foreground/60 group-hover:text-primary-foreground transition-colors">
-                      {tech.label}
                     </span>
                   </motion.li>
                 ))}
