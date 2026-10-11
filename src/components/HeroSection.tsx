@@ -165,7 +165,7 @@ const HeroSection = () => {
 
             {/* Right: tech stack */}
             <motion.div
-              className="rounded-3xl border border-primary-foreground/10 bg-foreground/40 backdrop-blur-md p-4 sm:p-6 shadow-2xl shadow-black/40"
+              className="rounded-3xl p-4 sm:p-6 shadow-2xl shadow-black/40"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -175,7 +175,7 @@ const HeroSection = () => {
                   <motion.li
                     key={tech.label}
                     title={tech.label}
-                    className="group relative w-[clamp(3.25rem,2.5rem_+_2.2vw,4.75rem)] aspect-square flex items-center justify-center rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.04] hover:border-primary-foreground/40 hover:bg-primary-foreground/[0.1] transition-colors duration-300"
+                    className="group relative w-[clamp(3.25rem,2.5rem_+_2.2vw,4.75rem)] aspect-square flex items-center justify-center rounded-2xl bg-primary-foreground/[0.04]"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     whileHover={{ y: -4, transition: { duration: 0.2 } }}
