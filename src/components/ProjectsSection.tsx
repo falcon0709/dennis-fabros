@@ -212,8 +212,8 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects" className="py-32 bg-black text-white relative min-h-screen bg-foreground text-primary-foreground relative overflow-hidden flex items-center full-landing-image">
-      <div className="section-padding max-w-7xl mx-auto scroll-mt-24" ref={ref}>
+    <section id="projects" className="bg-black text-white relative min-h-screen bg-foreground text-primary-foreground relative overflow-hidden flex items-center full-landing-image">
+      <div className="mx-auto scroll-mt-24" ref={ref} style={{ maxWidth: "90rem"}}>
         <motion.div
           className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 md:mb-20"
           initial={{ opacity: 0, y: 40 }}
