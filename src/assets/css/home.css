@@ -5,7 +5,7 @@ body {
 
 .full-landing-image {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background: url('../../../public/home_section_bg.jpg') no-repeat center;
     background-size: cover;
 }

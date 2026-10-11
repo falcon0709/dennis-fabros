@@ -9,8 +9,8 @@ const Index = () => {
     <main className="overflow-x-hidden">
       <Navigation />
       <HeroSection />
-      <ExperienceSection />
       <ProjectsSection />
+      <ExperienceSection />
       <ContactSection />
     </main>
   );
