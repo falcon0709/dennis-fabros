@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#home" },
-  { name: "Experience", href: "#experience" },
   { name: "Projects", href: "#projects" },
   { name: "Contact", href: "#contact" },
 ];
@@ -12,6 +12,8 @@ const navItems = [
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasScrolledPastHero, setHasScrolledPastHero] = useState(false);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,8 +28,14 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const sectionHref = (hash: string) => (pathname === "/" ? hash : `/${hash}`);
+
   const scrollToSection = (href: string) => {
     setIsOpen(false);
+    if (pathname !== "/") {
+      navigate({ pathname: "/", hash: href });
+      return;
+    }
     const element = document.querySelector(href);
     element?.scrollIntoView({ behavior: "smooth" });
   };
@@ -44,7 +52,7 @@ const Navigation = () => {
       >
         <div className="flex items-center justify-between">
           <motion.a
-            href="#home"
+            href={sectionHref("#home")}
             className={`font-display text-2xl tracking-wider transition-colors duration-300 ${
               hasScrolledPastHero ? "text-foreground" : "text-primary-foreground"
             }`}
@@ -69,7 +77,7 @@ const Navigation = () => {
             {navItems.map((item, index) => (
               <a
                 key={item.name}
-                href={item.href}
+                href={sectionHref(item.href)}
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToSection(item.href);
@@ -126,7 +134,7 @@ const Navigation = () => {
               {navItems.map((item, index) => (
                 <motion.a
                   key={item.name}
-                  href={item.href}
+                  href={sectionHref(item.href)}
                   onClick={(e) => {
                     e.preventDefault();
                     scrollToSection(item.href);

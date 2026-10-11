@@ -102,12 +102,12 @@ const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="py-32 bg-foreground text-primary-foreground relative overflow-hidden">
+    <section id="contact" className="py-32 bg-foreground text-primary-foreground relative overflow-hidden min-h-screen flex full-landing-image">
       {/* Geometric accents */}
       <div className="absolute top-1/4 right-0 w-32 h-px bg-primary-foreground/20" />
       <div className="absolute bottom-1/4 left-0 w-48 h-px bg-primary-foreground/20" />
 
-      <div className="section-padding max-w-7xl mx-auto" ref={ref}>
+      <div className="mx-auto" ref={ref} style={{width: "90rem"}}>
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
           {/* Left Column */}
           <motion.div

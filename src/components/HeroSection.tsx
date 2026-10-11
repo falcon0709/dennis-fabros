@@ -1,75 +1,29 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
-import StackIcon, { type IconName } from "tech-stack-icons";
-import { Icon } from "@iconify/react";
+import TechIcon from "@/components/TechIcon";
+import { HERO_STACK } from "@/data/techStack";
 import "../assets/css/home.css";
 
-type TechItem =
-  | { label: string; stackIcon: IconName }
-  | { label: string; iconify: string; iconClassName?: string };
-
-// Entries with `iconify` are missing from tech-stack-icons or unreadable on the dark background.
-const TECH_STACK: TechItem[] = [
-  { label: "PHP", stackIcon: "php" },
-  { label: "Python", stackIcon: "python" },
-  { label: "Node.js", stackIcon: "nodejs" },
-  { label: "Golang", stackIcon: "go" },
-  { label: "Laravel", stackIcon: "laravel" },
-  { label: "Django", stackIcon: "django" },
-  { label: "Flask", stackIcon: "flask" },
-  { label: "C++", iconify: "logos:c-plusplus" },
-  { label: "C#", stackIcon: "csharp" },
-  { label: "ASP.NET", stackIcon: "net" },
-  { label: ".NET Core", stackIcon: "netcore" },
-  { label: "Java", stackIcon: "java" },
-  { label: "React", stackIcon: "react" },
-  { label: "Angular", stackIcon: "angular" },
-  { label: "Vue.js", stackIcon: "vuejs" },
-  { label: "Next.js", stackIcon: "nextjs2" },
-  { label: "TypeScript", stackIcon: "typescript" },
-  { label: "Tailwind CSS", stackIcon: "tailwindcss" },
-  { label: "Nuxt.js", stackIcon: "nuxtjs" },
-  { label: "Webflow", stackIcon: "webflow" },
-  { label: "Electron", stackIcon: "electron" },
-  { label: "React Native", stackIcon: "reactnative" },
-  { label: "Flutter", stackIcon: "flutter" },
-  { label: "Swift", stackIcon: "swift" },
-  { label: "Kotlin", stackIcon: "kotlin" },
-  { label: "Firebase", stackIcon: "firebase" },
-  { label: "PostgreSQL", stackIcon: "postgresql" },
-  { label: "MongoDB", stackIcon: "mongodb" },
-  { label: "MySQL", iconify: "simple-icons:mysql", iconClassName: "text-sky-300" },
-  { label: "AWS", stackIcon: "aws" },
-  { label: "CI/CD", iconify: "logos:github-actions" },
-  { label: "REST APIs", stackIcon: "openapi" },
-  { label: "GraphQL", stackIcon: "graphql" },
-  { label: "Solidity", stackIcon: "solidity" },
-  { label: "Web3.js", stackIcon: "web3js" },
-  { label: "Polygon", stackIcon: "polygon" },
-  { label: "Market Data APIs", iconify: "mdi:chart-line", iconClassName: "text-emerald-400" },
-  { label: "WebSockets", iconify: "logos:websocket", iconClassName: "invert" },
-  { label: "Pandas", stackIcon: "pandas" },
-  { label: "NumPy", stackIcon: "numpy" },
-  { label: "Machine Learning", stackIcon: "tensorflow" },
-  { label: "LLM Integration", stackIcon: "openai" },
-];
-
+type RipplesTarget = {
+  length: number;
+  ripples?: (options: Record<string, unknown> | "destroy") => void;
+};
 
 const HeroSection = () => {
   useEffect(() => {
-    // Initialize ripples effect after component mounts
-    if (typeof window !== 'undefined' && (window as any).jQuery) {
-      const $ = (window as any).jQuery;
-      const element = $('.full-landing-image');
-      
-      if (element.length > 0 && typeof element.ripples === 'function') {
-        element.ripples({
-          resolution: 512,
-          dropRadius: 20,
-          perturbance: 0.04,
-        });
-      }
-    }
+    // jQuery and jquery.ripples are loaded from a CDN in index.html.
+    const jQuery = (window as unknown as { jQuery?: (selector: string) => RipplesTarget }).jQuery;
+    const element = jQuery?.(".full-landing-image");
+    if (!element?.length || typeof element.ripples !== "function") return;
+
+    element.ripples({
+      resolution: 512,
+      dropRadius: 20,
+      perturbance: 0.04,
+    });
+
+    // Each instance holds a WebGL context; release it when navigating to another route.
+    return () => element.ripples?.("destroy");
   }, []);
   return (
     <>
@@ -171,10 +125,10 @@ const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               <ul className="flex flex-wrap justify-center gap-2 sm:gap-2.5">
-                {TECH_STACK.map((tech, i) => (
+                {HERO_STACK.map((tech, i) => (
                   <motion.li
-                    key={tech.label}
-                    title={tech.label}
+                    key={tech}
+                    title={tech}
                     className="group relative w-[clamp(3.25rem,2.5rem_+_2.2vw,4.75rem)] aspect-square flex items-center justify-center rounded-2xl bg-primary-foreground/[0.04]"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -182,13 +136,9 @@ const HeroSection = () => {
                     transition={{ duration: 0.3, delay: 0.8 + i * 0.025 }}
                   >
                     <span className="w-[62%] h-[62%] flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                      {"stackIcon" in tech ? (
-                        <StackIcon name={tech.stackIcon} variant="dark" className="w-full h-full block" />
-                      ) : (
-                        <Icon icon={tech.iconify} className={`w-full h-full ${tech.iconClassName ?? ""}`} />
-                      )}
+                      <TechIcon name={tech} />
                     </span>
-                    <span className="sr-only">{tech.label}</span>
+                    <span className="sr-only">{tech}</span>
                   </motion.li>
                 ))}
               </ul>
