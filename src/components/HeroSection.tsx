@@ -83,7 +83,8 @@ const HeroSection = () => {
         <div className="absolute top-0 right-1/4 w-px h-32 bg-primary-foreground/20" />
 
         <div className="section-padding w-full py-32">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12 items-center">
+          <div className="mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12 items-center" style={{ maxWidth: "90rem" }}>
+     
             {/* Left: name + about */}
             <div>
               <motion.div
@@ -174,15 +175,17 @@ const HeroSection = () => {
                     key={tech.label}
                     title={tech.label}
                     className="group flex flex-col items-center justify-start gap-2 p-2 pt-3 border border-primary-foreground/10 bg-primary-foreground/[0.03] hover:border-primary-foreground/40 hover:bg-primary-foreground/[0.08] transition-colors duration-300"
+                    style={{ borderRadius: "20px" }}
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.3, delay: 0.8 + i * 0.025 }}
                   >
-                    <span className="w-8 h-8 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+             
+                    <span className="w-16 h-16 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                       {"stackIcon" in tech ? (
-                        <StackIcon name={tech.stackIcon} variant="dark" className="w-8 h-8 block" />
+                        <StackIcon name={tech.stackIcon} variant="dark" className="w-16 h-16 block" />
                       ) : (
-                        <Icon icon={tech.iconify} className={`w-8 h-8 ${tech.iconClassName ?? ""}`} />
+                        <Icon icon={tech.iconify} className={`w-16 h-16 ${tech.iconClassName ?? ""}`} />
                       )}
                     </span>
                   </motion.li>
