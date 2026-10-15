@@ -270,6 +270,9 @@ export const getAdjacentProjects = (slug: string) => {
   };
 };
 
+/** `sizes` for full-width gallery slides; shared so preloads hit the same srcset candidate. */
+export const GALLERY_IMAGE_SIZES = "(min-width: 1440px) 1344px, 100vw";
+
 const UNSPLASH_HOST = "images.unsplash.com";
 const RESPONSIVE_WIDTHS = [640, 960, 1280, 1920];
 

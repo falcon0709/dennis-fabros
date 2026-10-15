@@ -3,7 +3,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { responsiveImage } from "@/data/projects";
+import { GALLERY_IMAGE_SIZES, responsiveImage } from "@/data/projects";
 
 type ProjectGalleryProps = {
   title: string;
@@ -82,7 +82,7 @@ const ProjectGallery = ({ title, images, autoplayMs = 5000 }: ProjectGalleryProp
                   <img
                     src={src}
                     srcSet={srcSet}
-                    sizes="(min-width: 1440px) 1344px, 100vw"
+                    sizes={GALLERY_IMAGE_SIZES}
                     alt={`${title} — image ${index + 1} of ${images.length}`}
                     loading={index === 0 ? "eager" : "lazy"}
                     draggable={false}

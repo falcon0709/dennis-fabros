@@ -102,7 +102,7 @@ const ProjectDetail = () => {
               </span>
             </div>
 
-            <h1 className="mt-4 font-display text-[16vw] sm:text-[12vw] lg:text-[min(9vw,9rem)] leading-[0.85] tracking-tight break-words">
+            <h1 className="mt-4 font-display text-[8vw] sm:text-[5vw] lg:text-[min(3vw,5rem)] leading-[0.85] tracking-tight break-words">
               {project.title}
             </h1>
 
@@ -147,7 +147,7 @@ const ProjectDetail = () => {
           <div className="mt-24 md:mt-32 grid gap-16 md:grid-cols-2 md:gap-12 lg:gap-24">
             <motion.section {...reveal} aria-labelledby="project-challenge">
               <SectionLabel index="01">Challenge</SectionLabel>
-              <h2 id="project-challenge" className="mt-6 font-display text-5xl md:text-6xl leading-none">
+              <h2 id="project-challenge" className="mt-6 font-display text-4xl md:text-4xl leading-none">
                 The Problem
               </h2>
               <p className="mt-6 font-body text-base md:text-lg text-white/70 leading-relaxed">
@@ -157,7 +157,7 @@ const ProjectDetail = () => {
 
             <motion.section {...reveal} transition={{ ...reveal.transition, delay: 0.1 }} aria-labelledby="project-solution">
               <SectionLabel index="02">Solution</SectionLabel>
-              <h2 id="project-solution" className="mt-6 font-display text-5xl md:text-6xl leading-none">
+              <h2 id="project-solution" className="mt-6 font-display text-4xl md:text-4xl leading-none">
                 The Approach
               </h2>
               <p className="mt-6 font-body text-base md:text-lg text-white/70 leading-relaxed">
@@ -169,7 +169,7 @@ const ProjectDetail = () => {
           {/* Technologies */}
           <motion.section {...reveal} className="mt-24 md:mt-32" aria-labelledby="project-tech">
             <SectionLabel index="03">Technologies</SectionLabel>
-            <h2 id="project-tech" className="mt-6 font-display text-5xl md:text-6xl leading-none">
+            <h2 id="project-tech" className="mt-6 font-display text-4xl md:text-4xl leading-none">
               Built With
             </h2>
             <ul
@@ -197,7 +197,13 @@ const ProjectDetail = () => {
 
           {/* Navigation */}
           <motion.div {...reveal} className="mt-24 md:mt-32 pt-12 border-t border-white/10">
-            <ProjectNavigation previous={previous} next={next} backTo={backTo} />
+            <ProjectNavigation
+              previous={previous}
+              next={next}
+              backTo={backTo}
+              position={position}
+              total={projects.length}
+            />
           </motion.div>
         </div>
       </article>
